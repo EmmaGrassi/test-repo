@@ -6,6 +6,10 @@ import { HttpModule } from '@angular/http';
 /*Services*/
 import { ApiService } from './shared/api/api.service';
 
+/*Modules*/
+import { DevcasesModule } from './devcases/devcases.module';
+import { LayoutModule } from './layout/layout.module';
+
 /*Components*/
 import { AppComponent } from './app.component';
 
@@ -15,7 +19,9 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    HttpModule
+    HttpModule,
+    DevcasesModule,
+    LayoutModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

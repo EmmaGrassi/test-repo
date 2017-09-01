@@ -1,128 +1,13 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top sytac--dark">
-  <a class="navbar-brand cu-pointer" href="/">
-    <img src="../assets/img/logo_light_grey.png" height="40" class="d-inline-block align-top"/>
-  </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-          aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<!--Header section-->
+<app-header></app-header>
 
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <ul class="navbar-nav mr-auto">
-      <!--<li class="nav-item active">-->
-      <!--<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>-->
-      <!--</li>-->
-      <!--<li class="nav-item">-->
-      <!--<a class="nav-link" href="#">Link</a>-->
-      <!--</li>-->
-    </ul>
-    <span>Username, Role (<a href="#" class="text-white underline">logout</a>)</span>
-  </div>
-</nav>
+<!--Form for adding a new candidate-->
+<add-candidate-form></add-candidate-form>
 
-<!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron sytac--orange p-4">
-  <div class="container mt-5">
-    <h4 class="display-4">
-      <img src="../assets/img/github_logo_64.png"> Sytac's DevCase portal</h4>
-    <p>
-      In this platform you'll be able to clone GitHub repositories, add collaborators to all these repositories,
-      remove collaborators, etc... All under the hood!
-    </p>
-  </div>
-</div>
+<!--Table with all the DevCases-->
+<devcases-table></devcases-table>
 
-<div class="container">
-  <!-- Example row of columns -->
-  <div class="row">
-
-    <div *ngIf="apiError.error; then errorDisplay else reposDisplay">
-    </div>
-
-    <!--Repos table display-->
-    <ng-template #reposDisplay>
-      <div class="col-md-12" *ngIf="repositories?.length > 0; else emptyRepos">
-        <table class="table table-bordered table-striped table-responsive">
-          <thead>
-          <tr>
-            <th>Candidate name</th>
-            <th>GitHub username</th>
-            <th>Repository name</th>
-            <th>DevCase type</th>
-            <th>Recruiter</th>
-            <th>Reviewer</th>
-            <th>Deadline</th>
-            <th>Modified date</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let repo of repositories;">
-            <td>{{repo.candidate.name}}</td>
-            <td>
-              <a href="https://github.com/{{repo.candidate.github_account}}" target="_blank">{{repo.candidate.github_account}}</a>
-            </td>
-            <td>
-              <a href="https://github.com/Sytac/{{repo.case_type}}-{{repo.candidate.github_account}}" target="_blank">{{repo.case_type}}-{{repo.candidate.github_account}}</a>
-            </td>
-            <td>{{repo.case_type}}</td>
-            <td>
-              <a href="mailto:{{repo.recruiter.account}}" target="_blank">{{repo.recruiter.name}}</a>
-            </td>
-            <td>
-              <a href="mailto:{{repo.reviewer.account}}" target="_blank">{{repo.reviewer.name}}</a>
-            </td>
-            <td>{{repo.deadline}}</td>
-            <td>{{repo.modify_date}}</td>
-            <td>{{repo.status.name}}</td>
-            <td>
-              <a href="#" class="btn btn-sm sytac-btn--orange">Review</a>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </ng-template>
-
-    <!--Empty repos message-->
-    <ng-template #emptyRepos>
-      <div class="container">
-        <h4 class="card-title">No data available
-        </h4>
-        <div class="card-block h-100">
-          <p>We didn't find any available data! We are sorry...</p>
-          <p>Please try again, if the error persists contact technical support at
-            <a
-              href="mailto:riccardo.polacci@sytac.io?subject=API call empty data">riccardo.polacci@sytac.io</a>
-          </p>
-        </div>
-      </div>
-    </ng-template>
-
-    <!--Error message-->
-    <ng-template #errorDisplay>
-      <div class="container">
-        <h4 class="card-title">{{apiError.msg}}
-        </h4>
-        <div class="card-block h-100">
-          <p>An error occurred while trying to retrieve the data! We are sorry...</p>
-          <p>Please try again, if the error persists contact technical support at
-            <a
-              href="mailto:riccardo.polacci@sytac.io?subject=API call error">riccardo.polacci@sytac.io</a>
-          </p>
-        </div>
-      </div>
-    </ng-template>
-
-
-  </div>
-
-</div> <!-- /container -->
-<footer class="footer sytac--dark">
-  <div class="container text-center">
-    <span>2017 &copy; <a href="https://sytac.io/" target="_blank">Sytac IT</a></span>
-  </div>
-</footer>
+<!--Footer-->
+<app-footer></app-footer>
 
 
