@@ -1,4 +1,6 @@
+@import '../css/_variables';
 /*Common styles*/
+
 %color-white {
   color: #ffffff;
 }
@@ -12,7 +14,7 @@
 }
 
 %orange-bg {
-  background-color: #e67e22;
+  background-color:$sytac-orange;
 }
 
 /*General styles*/
@@ -33,7 +35,7 @@
     @extend %color-white;
 
     &:hover {
-      background-color: #e67e22;
+      background-color:$sytac-orange;
       @extend %cursor-pointer;
     }
   }
