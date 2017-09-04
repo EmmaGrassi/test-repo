@@ -2,18 +2,20 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
+import { routing } from './app.routing';
 
 /*Services*/
 import { ApiService } from './shared/api/api.service';
+import { AuthGuard } from './guards/auth.guard';
 import { AuthenticationService } from './shared/api/authentication.service';
 
 /*Modules*/
-import { DevcasesModule } from './devcases/devcases.module';
-import { LayoutModule } from './layout/layout.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 /*Components*/
 import { AppComponent } from './app.component';
-import { GoogleAuthenticationComponent } from './login/google-authentication/google-authentication.component';
+import { LoginComponent } from './login/login.component';
 import {ClientConfig, GoogleApiModule, NG_GAPI_CONFIG} from 'ng-gapi';
 
 const GOOGLE_CLIENT_ID = '189868751709-oq1sgg1qkgj49h6pdk88uvfqiipmhlns.apps.googleusercontent.com';
@@ -30,19 +32,24 @@ let gapiClientConfig: ClientConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    GoogleAuthenticationComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpModule,
-    DevcasesModule,
-    LayoutModule,
+    DashboardModule,
+    routing,
     GoogleApiModule.forRoot({
         provide: NG_GAPI_CONFIG,
         useValue: gapiClientConfig
-    })
+    }),
   ],
-  providers: [ApiService, AuthenticationService],
+  providers: [
+    ApiService,
+    AuthGuard,
+    AuthenticationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

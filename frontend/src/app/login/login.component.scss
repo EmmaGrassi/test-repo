@@ -1,5 +1,4 @@
-@import '../../../assets/css/_variables';
-
+@import '../../assets/css/_variables';
 .authentication-pane {
   background: #fff;
   box-shadow: 0 1px 3px 0 rgba(0,0,0,.25);
@@ -10,6 +9,8 @@
   text-align: center;
   padding:35px 20px;
   border-bottom: solid 4px $sytac-orange;
+  top: 20vh;
+  position: relative;
 }
 
 .google-login-button{
@@ -19,7 +20,7 @@
   margin-top: 35px;
 }
 .google-login-button span{
-  background-image: url(../../../assets/img/google-login.png);
+  background-image: url(../../assets/img/google-login.png);
   background-position: 50%;
   background-repeat: no-repeat;
   display: inline-block;
