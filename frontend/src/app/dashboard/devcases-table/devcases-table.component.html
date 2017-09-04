@@ -34,13 +34,21 @@
               <a href="mailto:{{repo.recruiter.account}}" target="_blank">{{repo.recruiter.name}}</a>
             </td>
             <td>
-              <a href="mailto:{{repo.reviewer.account}}" target="_blank">{{repo.reviewer.name}}</a>
+              <ul>
+                <li *ngFor="let reviewer of repo.reviewers">
+                  <a href="mailto:{{reviewer.account}}" target="_blank">{{reviewer.name}}</a>
+                </li>
+              </ul>
             </td>
             <td>{{repo.deadline}}</td>
             <td>{{repo.modify_date}}</td>
-            <td>{{repo.status.name}}</td>
+            <td>{{repo.status}}</td>
             <td>
               <a href="#" class="btn btn-sm sytac-btn--orange">Review</a>
+              <!--<a href="#" class="btn btn-sm sytac-btn&#45;&#45;orange">Available</a>-->
+              <!--<a href="#" class="btn btn-sm sytac-btn&#45;&#45;orange disabled">Reviewing...</a>-->
+              <!--<a href="#" class="btn btn-sm sytac-btn&#45;&#45;orange">Reviewed</a>-->
+              <!--<a href="#" class="btn btn-sm sytac-btn&#45;&#45;orange">Archived</a>-->
             </td>
           </tr>
           </tbody>
