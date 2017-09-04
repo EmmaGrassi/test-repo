@@ -22,14 +22,17 @@
           </thead>
           <tbody>
           <tr *ngFor="let repo of repositories;">
-            <td>{{repo.candidate.name}}</td>
+            <td>{{repo.candidate.name | capitalize}}</td>
             <td>
+              <span>
+                <img src="../../../assets/img/github_logo_32.png" width="18"/>
+              </span>
               <a href="https://github.com/{{repo.candidate.github_account}}" target="_blank">{{repo.candidate.github_account}}</a>
             </td>
             <td>
               <a href="https://github.com/Sytac/{{repo.case_type}}-{{repo.candidate.github_account}}" target="_blank">{{repo.case_type}}-{{repo.candidate.github_account}}</a>
             </td>
-            <td>{{repo.case_type}}</td>
+            <td>{{repo.case_type | capitalize}}</td>
             <td>
               <a href="mailto:{{repo.recruiter.account}}" target="_blank">{{repo.recruiter.name}}</a>
             </td>
