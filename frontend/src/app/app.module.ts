@@ -24,8 +24,8 @@ let gapiClientConfig: ClientConfig = {
     clientId: GOOGLE_CLIENT_ID,
     discoveryDocs: [],
     //uncomment this later, after the changes in the console are propagated
-    ux_mode: 'redirect',
-    redirect_uri: 'http://localhost:4200/auth/google_oauth2/callback',
+    //ux_mode: 'redirect',
+    //redirect_uri: 'http://localhost:4200/auth/google_oauth2/callback',
     scope: [].join(' ')
 };
 
