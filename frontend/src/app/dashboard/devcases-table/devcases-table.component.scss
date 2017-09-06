@@ -1,0 +1,35 @@
+@import "~bootstrap/scss/bootstrap";
+
+@include media-breakpoint-up(xl) {
+  .candidates-table .d-lg-row {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -ms-flex-wrap: wrap !important;
+    flex-wrap: wrap !important;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+}
+
+@include media-breakpoint-down(xl) {
+  .candidates-table>div:nth-child(2){
+    border-top: solid 1px #cdcdcd !important;
+  }
+}
+
+.candidates-table > div:first-child {
+  font-weight: bold;
+}
+
+.candidates-table .row strong {
+  display: inline-block;
+  padding-right: 20px;
+  min-width: 150px;
+  box-sizing: border-box;
+}
+
+.candidates-table ul{
+  padding-left: 20px;
+  display: inline-block;
+}
