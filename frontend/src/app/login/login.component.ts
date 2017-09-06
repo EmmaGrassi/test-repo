@@ -1,21 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../shared/api/authentication.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'login',
   templateUrl: 'login.component.html',
   styleUrls: ['./login.component.scss']
 })
-
-export class LoginComponent implements OnInit {
-  model: any = {};
-  loading = false;
+export class LoginComponent implements OnInit, OnDestroy {
   returnUrl: string;
+
+  private signIngSub: Subscription;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private _authenticationService: AuthenticationService) {
+              private _authenticationService: AuthenticationService,
+              private ngZone: NgZone) {
   }
 
   ngOnInit() {
@@ -24,17 +25,20 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this._authenticationService.signIn()
-  /*
-    // DELETE THIS RUBBISH
-    if (this.model.username === 'sytac' && this.model.password === 'aaa') {
-      localStorage.setItem('currentUser', JSON.stringify(this.model.username));
-      this.router.navigate([this.returnUrl]);
-    } else {
-      this.loading = false;
-      alert('bad login credentials');
-    }
-*/
+    this.signIngSub = this._authenticationService.signIn().subscribe(
+      () => {
+        this.ngZone.run(() => this.router.navigateByUrl(this.returnUrl));
+        console.info('success when logging in');
+      },
+      (err) => {
+        console.warn('err when logging in', err);
+      }
+    );
+  }
 
+  ngOnDestroy() {
+    if (this.signIngSub) {
+      this.signIngSub.unsubscribe();
+    }
   }
 }

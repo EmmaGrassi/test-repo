@@ -1,16 +1,16 @@
-import {Injectable, NgZone} from "@angular/core";
-import * as _ from "lodash";
-import {GoogleAuthService} from "ng-gapi/lib/GoogleAuthService";
+import { Injectable, NgZone } from '@angular/core';
+import * as _ from 'lodash';
+import { GoogleAuthService } from 'ng-gapi/lib/GoogleAuthService';
 import GoogleUser = gapi.auth2.GoogleUser;
-import GoogleAuth = gapi.auth2.GoogleAuth;
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthenticationService {
-  public static readonly SESSION_STORAGE_KEY: string = "accessToken";
+  public static readonly SESSION_STORAGE_KEY: string = 'accessToken';
   private user: GoogleUser = undefined;
 
   constructor(private googleAuthService: GoogleAuthService,
-    private ngZone: NgZone) {
+              private ngZone: NgZone) {
   }
 
   public setUser(user: GoogleUser): void {
@@ -21,29 +21,42 @@ export class AuthenticationService {
     return this.user;
   }
 
-  public getToken(): string {
+  public getToken(): any {
     let token: string = sessionStorage.getItem(AuthenticationService.SESSION_STORAGE_KEY);
     if (!token) {
-      throw new Error("no token set , authentication required");
+      return false;
     }
     return sessionStorage.getItem(AuthenticationService.SESSION_STORAGE_KEY);
   }
 
   public signIn() {
-    this.googleAuthService.getAuth().subscribe((auth) => {
-      auth.signIn().then(res => this.signInSuccessHandler(res), err => this.signInErrorHandler(err));
-    });
+    return Observable.create(observer => {
+      this.googleAuthService.getAuth().subscribe(
+        (auth) => {
+          auth.signIn().then(
+            res => observer.next(this.signInSuccessHandler(res)),
+            err => observer.error(this.signInErrorHandler(err))
+          );
+        }
+      );
+    }).publish().refCount();
   }
 
-  public signOut(): void {
-    this.googleAuthService.getAuth().subscribe((auth) => {
-      try {
-        auth.signOut();
-      } catch (e) {
-        console.error(e);
-      }
-      sessionStorage.removeItem(AuthenticationService.SESSION_STORAGE_KEY)
-    });
+  public signOut() {
+    return Observable.create(observer => {
+      this.googleAuthService.getAuth().subscribe(
+        (auth) => {
+          auth.signOut().then(
+            res => {
+              sessionStorage.removeItem(AuthenticationService.SESSION_STORAGE_KEY);
+              observer.next(res)
+            },
+            err => observer.error(this.signOutErrorHandler(err))
+          );
+          // sessionStorage.removeItem(AuthenticationService.SESSION_STORAGE_KEY)
+        }
+      );
+    }).publish().refCount();
   }
 
   public isUserSignedIn(): boolean {
@@ -51,16 +64,21 @@ export class AuthenticationService {
   }
 
   private signInSuccessHandler(res: GoogleUser) {
-    this.ngZone.run(() => {
-      this.user = res;
-      console.log(this.user);
-      sessionStorage.setItem(
-        AuthenticationService.SESSION_STORAGE_KEY, res.getAuthResponse().access_token
-      );
-    });
+    this.ngZone.run(
+      () => {
+        this.user = res;
+        console.log(this.user);
+        sessionStorage.setItem(
+          AuthenticationService.SESSION_STORAGE_KEY, res.getAuthResponse().id_token
+        );
+      });
   }
 
   private signInErrorHandler(err) {
+    console.warn(err);
+  }
+
+  private signOutErrorHandler(err) {
     console.warn(err);
   }
 }
