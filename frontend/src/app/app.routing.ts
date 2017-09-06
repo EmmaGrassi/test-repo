@@ -5,8 +5,15 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/index';
 
 const appRoutes: Routes = [
-  {path: '', component: DashboardComponent, canActivate: [AuthGuard]},
-  {path: 'login', component: LoginComponent},
+  {
+    path: '',
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
 
   // otherwise redirect to home
   {path: '**', redirectTo: ''}

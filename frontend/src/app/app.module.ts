@@ -16,17 +16,17 @@ import { DashboardModule } from './dashboard/dashboard.module';
 /*Components*/
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import {ClientConfig, GoogleApiModule, NG_GAPI_CONFIG} from 'ng-gapi';
+import { ClientConfig, GoogleApiModule, NG_GAPI_CONFIG } from 'ng-gapi';
 
 const GOOGLE_CLIENT_ID = '189868751709-oq1sgg1qkgj49h6pdk88uvfqiipmhlns.apps.googleusercontent.com';
 
 let gapiClientConfig: ClientConfig = {
-    clientId: GOOGLE_CLIENT_ID,
-    discoveryDocs: [],
-    //uncomment this later, after the changes in the console are propagated
-    //ux_mode: 'redirect',
-    //redirect_uri: 'http://localhost:4200/auth/google_oauth2/callback',
-    scope: [].join(' ')
+  clientId: GOOGLE_CLIENT_ID,
+  discoveryDocs: [],
+  //uncomment this later, after the changes in the console are propagated
+  //ux_mode: 'redirect',
+  //redirect_uri: 'http://localhost:4200/auth/google_oauth2/callback',
+  scope: [].join(' ')
 };
 
 @NgModule({
@@ -41,8 +41,8 @@ let gapiClientConfig: ClientConfig = {
     DashboardModule,
     routing,
     GoogleApiModule.forRoot({
-        provide: NG_GAPI_CONFIG,
-        useValue: gapiClientConfig
+      provide: NG_GAPI_CONFIG,
+      useValue: gapiClientConfig
     }),
   ],
   providers: [
