@@ -1,53 +1,62 @@
-<div class="container ">
+<div class="container">
     <div *ngIf="apiError.error; then errorDisplay else reposDisplay">
     </div>
     <!--Repos table display-->
     <ng-template #reposDisplay>
       <div *ngIf="repositories?.length > 0; else emptyRepos">
         <div class="candidates-table container-fluid">
-          <div class="row d-none d-lg-row border py-2 px-3">
-            <div class="col-xl-2">Candidate name</div>
-            <div class="col-xl-1">GitHub username</div>
-            <div class="col-xl-1">Repository name</div>
-            <div class="col-xl-1">DevCase type</div>
-            <div class="col-xl-1">Recruiter</div>
-            <div class="col-xl-2">Reviewer</div>
-            <div class="col-xl-1">Deadline</div>
-            <div class="col-xl-1">Modified date</div>
-            <div class="col-xl-1">Status</div>
-            <div class="col-xl-1">Action</div>
+          <div class="row d-none d-lg-row border">
+            <div class="col-lg-2 py-2 px-3">Candidate name</div>
+            <!--<div class="col-lg-1">GitHub username</div>-->
+            <div class="col-lg-2 py-2 px-3">Repository name</div>
+            <!--<div class="col-lg-1">DevCase type</div>-->
+            <div class="col-lg-1 py-2 px-3">Recruiter</div>
+            <div class="col-lg-2 py-2 px-3">Reviewer</div>
+            <div class="col-lg-1 py-2 px-3">Deadline</div>
+            <div class="col-lg-1 py-2 px-3">Modified date</div>
+            <div class="col-lg-2 py-2 px-3">Status</div>
+            <div class="col-lg-1 py-2 px-3">Action</div>
           </div>
           <div *ngFor="let repo of repositories;" class="row border border-top-0">
-            <div class="candidate col-xl-2 py-2 px-3"><strong class="d-xl-none">Candidate name:<br/></strong>{{repo.candidate.name | capitalize}}</div>
-            <div class="candidate col-xl-1 py-2 px-3">
+            <div class="candidate col-lg-2 py-2 px-3">
+              <strong class="d-lg-none">Candidate name:<br/></strong>
+              <a href="https://github.com/{{repo.candidate.github_account}}" target="_blank"
+                 data-toggle="tooltip"
+                 data-placement="top"
+                 data-html="true" title="Github account: {{repo.candidate.github_account}} <img src='../../../assets/img/github_logo_32.png' width='18'/></b>"
+                 >
+                  {{repo.candidate.name | capitalize}}
+              </a>
+            </div>
+            <!--<div class="candidate col-lg-1 py-2 px-3">
               <strong class="d-xl-none">GitHub username:<br/></strong>
               <span>
                 <img src="../../../assets/img/github_logo_32.png" width="18"/>
               </span>
               <a href="https://github.com/{{repo.candidate.github_account}}" target="_blank">{{repo.candidate.github_account}}</a>
-            </div>
-            <div class="candidate col-xl-1 py-2 px-3">
-              <strong class="d-xl-none">Repository name:<br/></strong>
+            </div>-->
+            <div class="candidate col-lg-2 py-2 px-3">
+              <strong class="d-lg-none">Repository name:<br/></strong>
               <a href="https://github.com/Sytac/{{repo.case_type}}-{{repo.candidate.github_account}}" target="_blank">{{repo.case_type}}-{{repo.candidate.github_account}}</a>
             </div>
-            <div class="candidate col-xl-1 py-2 px-3"><strong class="d-xl-none">DevCase type:<br/></strong>{{repo.case_type | capitalize}}</div>
-            <div class="staff col-xl-1 py-2 px-3">
-              <strong class="d-xl-none">Recruiter:<br/></strong>
+            <!--<div class="candidate col-lg-1 py-2 px-3"><strong class="d-xl-none">DevCase type:<br/></strong>{{repo.case_type | capitalize}}</div>-->
+            <div class="staff col-lg-1 py-2 px-3">
+              <strong class="d-lg-none">Recruiter:<br/></strong>
               <a href="mailto:{{repo.recruiter.account}}" target="_blank">{{repo.recruiter.name}}</a>
             </div>
-            <div class="staff col-xl-2 py-2 px-3">
-              <strong class="d-xl-none align-top">Reviewer:<br/></strong>
+            <div class="staff col-lg-2 py-2 px-3">
+              <strong class="d-lg-none align-top">Reviewer:<br/></strong>
               <ul>
                 <li *ngFor="let reviewer of repo.reviewers">
                   <a href="mailto:{{reviewer.account}}" target="_blank">{{reviewer.name}}</a>
                 </li>
               </ul>
             </div>
-            <div class="staff col-xl-1 py-2 px-3"><strong class="d-xl-none">Deadline:<br/></strong>{{repo.deadline}}</div>
-            <div class="staff col-xl-1 py-2 px-3"><strong class="d-xl-none">Modified date:<br/></strong>{{repo.modify_date}}</div>
-            <div class="dev-case-status col-xl-1 py-2 px-3"><strong class="d-xl-none">Status:<br/></strong>{{repo.status}}</div>
-            <div class="dev-case-action col-xl-1 py-2 px-3">
-              <strong class="d-xl-none">Action:<br/></strong>
+            <div class="staff col-lg-1 py-2 px-3"><strong class="d-lg-none">Deadline:<br/></strong>{{repo.deadline}}</div>
+            <div class="staff col-lg-1 py-2 px-3"><strong class="d-lg-none">Modified date:<br/></strong>{{repo.modify_date}}</div>
+            <div class="dev-case-status col-lg-2 py-2 px-3"><strong class="d-lg-none">Status:<br/></strong>{{repo.status}}</div>
+            <div class="dev-case-action col-lg-1 py-2 px-3">
+              <strong class="d-lg-none">Action:<br/></strong>
               <button href="#" class="btn btn-sm sytac-btn--orange">Review</button>
               <!--<a href="#" class="btn btn-sm sytac-btn&#45;&#45;orange">Available</a>-->
               <!--<a href="#" class="btn btn-sm sytac-btn&#45;&#45;orange disabled">Reviewing...</a>-->

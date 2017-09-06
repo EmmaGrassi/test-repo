@@ -1,6 +1,6 @@
 @import "~bootstrap/scss/bootstrap";
 
-@include media-breakpoint-up(xl) {
+@include media-breakpoint-up(lg) {
   .candidates-table .d-lg-row {
     display: -webkit-box !important;
     display: -ms-flexbox !important;
@@ -13,13 +13,14 @@
 }
 
 @include media-breakpoint-down(xl) {
-  .candidates-table>div:nth-child(2){
+  .candidates-table > div:nth-child(2) {
     border-top: solid 1px #cdcdcd !important;
   }
 }
 
 .candidates-table > div:first-child {
   font-weight: bold;
+  border-bottom: none !important;
 }
 
 .candidates-table .row strong {
@@ -29,7 +30,7 @@
   box-sizing: border-box;
 }
 
-.candidates-table ul{
+.candidates-table ul {
   padding-left: 20px;
   display: inline-block;
 }
