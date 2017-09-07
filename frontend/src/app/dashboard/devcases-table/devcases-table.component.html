@@ -28,13 +28,13 @@
                   {{repo.candidate.name | capitalize}}
               </a>
             </div>
-            <!--<div class="candidate col-lg-1 py-2 px-3">
-              <strong class="d-xl-none">GitHub username:<br/></strong>
+            <div class="candidate col-lg-1 py-2 px-3 d-lg-none">
+              <strong>GitHub username:<br/></strong>
               <span>
                 <img src="../../../assets/img/github_logo_32.png" width="18"/>
               </span>
               <a href="https://github.com/{{repo.candidate.github_account}}" target="_blank">{{repo.candidate.github_account}}</a>
-            </div>-->
+            </div>
             <div class="candidate col-lg-2 py-2 px-3">
               <strong class="d-lg-none">Repository name:<br/></strong>
               <a href="https://github.com/Sytac/{{repo.case_type}}-{{repo.candidate.github_account}}" target="_blank">{{repo.case_type}}-{{repo.candidate.github_account}}</a>
@@ -48,13 +48,28 @@
               <strong class="d-lg-none align-top">Reviewer:<br/></strong>
               <ul>
                 <li *ngFor="let reviewer of repo.reviewers">
-                  <a href="mailto:{{reviewer.account}}" target="_blank">{{reviewer.name}}</a>
+                  <span><a href="mailto:{{reviewer.account}}" target="_blank">{{reviewer.name}}</a></span>
                 </li>
               </ul>
             </div>
             <div class="staff col-lg-1 py-2 px-3"><strong class="d-lg-none">Deadline:<br/></strong>{{repo.deadline}}</div>
             <div class="staff col-lg-1 py-2 px-3"><strong class="d-lg-none">Modified date:<br/></strong>{{repo.modify_date}}</div>
-            <div class="dev-case-status col-lg-2 py-2 px-3"><strong class="d-lg-none">Status:<br/></strong>{{repo.status}}</div>
+            <div class="dev-case-workflow col-lg-2 py-2 px-3"><strong class="d-lg-none">Status:<br/></strong>
+              {{repo.status}}
+              <ul>
+                <li data-toggle="tooltip"
+                    data-placement="top"
+                    title="Repository created"></li>
+                <li data-toggle="tooltip"
+                    data-placement="top" class="selected" title="Devcase solution available"></li>
+                <li data-toggle="tooltip"
+                    data-placement="top" title="Review in-progress"></li>
+                <li data-toggle="tooltip"
+                    data-placement="top" title="Review complete"></li>
+                <li data-toggle="tooltip"
+                    data-placement="top" title="Archived"></li>
+              </ul>
+            </div>
             <div class="dev-case-action col-lg-1 py-2 px-3">
               <strong class="d-lg-none">Action:<br/></strong>
               <button href="#" class="btn btn-sm sytac-btn--orange">Review</button>
