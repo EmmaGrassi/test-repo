@@ -2,6 +2,7 @@ import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../shared/api/authentication.service';
 import { Subscription } from 'rxjs/Subscription';
+import { ApiService } from '../shared/api/api.service';
 
 @Component({
   selector: 'login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private _authenticationService: AuthenticationService,
-              private ngZone: NgZone) {
+              private ngZone: NgZone,
+              private apiService: ApiService) {
   }
 
   ngOnInit() {
@@ -26,9 +28,21 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login() {
     this.signIngSub = this._authenticationService.signIn().subscribe(
-      () => {
-        this.ngZone.run(() => this.router.navigateByUrl(this.returnUrl));
-        console.info('success when logging in');
+      (user) => {
+        console.info('success when logging in with Google', user);
+
+        this.apiService.checkUser(user).subscribe(
+          (user) => {
+            sessionStorage.setItem(
+              'currentUser', JSON.stringify(user)
+            );
+            console.info('success when requesting security check to BE', user);
+            this.ngZone.run(() => this.router.navigateByUrl(this.returnUrl));
+          },
+          (error) => {
+            console.warn('error when requesting security check to BE', error);
+          }
+        );
       },
       (err) => {
         console.warn('err when logging in', err);

@@ -53,7 +53,9 @@ export class AuthenticationService {
             },
             err => observer.error(this.signOutErrorHandler(err))
           );
-          // sessionStorage.removeItem(AuthenticationService.SESSION_STORAGE_KEY)
+        },
+        (error) => {
+          console.warn(error)
         }
       );
     }).publish().refCount();
@@ -67,11 +69,11 @@ export class AuthenticationService {
     this.ngZone.run(
       () => {
         this.user = res;
-        console.log(this.user);
         sessionStorage.setItem(
           AuthenticationService.SESSION_STORAGE_KEY, res.getAuthResponse().id_token
         );
       });
+    return this.user;
   }
 
   private signInErrorHandler(err) {

@@ -16,7 +16,8 @@
       <!--<a class="nav-link" href="#">Link</a>-->
       <!--</li>-->
     </ul>
-    <span>Username, Role (<a (click)="logout()" class="text-white underline cu-pointer">logout</a>)</span>
+    <span>{{user.name | capitalize}}, {{user?.role | capitalize}} (<a (click)="logout()"
+                                                                      class="text-white underline cu-pointer">logout</a>)</span>
   </div>
 </nav>
 
