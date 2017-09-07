@@ -1,13 +1,16 @@
-import { Component, NgZone, OnDestroy } from '@angular/core';
+import { Component, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../shared/api/authentication.service';
 import { Subscription } from 'rxjs/Subscription';
+import { User } from '../../shared/models/user.model';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html'
 })
-export class HeaderComponent implements OnDestroy {
+export class HeaderComponent implements OnInit, OnDestroy {
+  user: User;
+
   private signOutSubscription: Subscription;
 
   constructor(private authService: AuthenticationService,
@@ -25,6 +28,10 @@ export class HeaderComponent implements OnDestroy {
         console.warn(err);
       }
     );
+  }
+
+  ngOnInit() {
+    this.user = JSON.parse(sessionStorage.getItem('currentUser'));
   }
 
   ngOnDestroy() {

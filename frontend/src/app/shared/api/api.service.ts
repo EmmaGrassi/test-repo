@@ -3,6 +3,8 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import GoogleUser = gapi.auth2.GoogleUser;
+import { User } from '../models/user.model';
 
 @Injectable()
 export class ApiService {
@@ -14,6 +16,19 @@ export class ApiService {
       .get(url)
       .map(this.extractData)
       .catch(this.handleError);
+  }
+
+  /*MOCK BE REQUESTS*/
+  checkUser(user: GoogleUser): Observable<any> {
+    let beUser: User = {
+      name: 'Riccardo Polacci',
+      email: 'riccardo.polacci@sytac.io',
+      role: 'recruiter'
+    };
+
+    return Observable.create(observer => {
+      observer.next(beUser);
+    }).publish().refCount();
   }
 
   private extractData(res: Response) {
